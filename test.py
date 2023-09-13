@@ -2,8 +2,7 @@ import time
 from glob import glob
 import os
 import matplotlib.pyplot as plt
-#import h5py
-#import tensorflow as tf
+
 import numpy as np
 from tensorflow import keras
 from skimage.transform import resize
@@ -26,7 +25,7 @@ filenames = [obj for obj in sorted(glob(os.path.join(filenames_path, '*.jpg')))]
 start = time.time()
 
 for filepath in filenames:
-    image = plt.imread(filepath, 0)
+    image = plt.imread(filepath, 0)  # type: ignore
     image_resized = resize(image, (21, 28),anti_aliasing=True,clip=False,preserve_range=True)
     images.append(image_resized)
 
