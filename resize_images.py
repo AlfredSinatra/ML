@@ -18,8 +18,8 @@ for root, dirnames, filenames in os.walk(imgpath):
         if re.search("\.(jpg|jpeg|png|bmp|tiff)$", filename):  # type: ignore
             filepath = os.path.join(root, filename)
             image = cv2.imread(filepath)
-            image_resized = cv2.resize(image, (128, 72))
-            cv2.imwrite(filepath.replace('animals_10', 'animals_resized'), image_resized)
+            image_resized = cv2.resize(image, (64, 36))
+            cv2.imwrite(filepath.replace('animals_10', 'animals_resized_2'), image_resized)
 
 print('Total time:', time.time() - start)
     
