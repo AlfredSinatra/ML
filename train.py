@@ -11,7 +11,7 @@ from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers.advanced_activations import LeakyReLU
 
-dirname = os.path.join('/Users/alfredo-castro/Downloads/', 'animals_resized')
+dirname = os.path.join('/Users/alfredo-castro/Downloads/', 'animals_resized_2')
 imgpath = dirname + os.sep 
  
 images = []
@@ -28,7 +28,7 @@ for root, dirnames, filenames in os.walk(imgpath):
             cant=cant+1
             filepath = os.path.join(root, filename)
             image = plt.imread(filepath)
-            image = resize(image, (72, 128),anti_aliasing=True,clip=False,preserve_range=True)
+            image = resize(image, (36, 64),anti_aliasing=True,clip=False,preserve_range=True)
             images.append(image)
             b = "Reading..." + str(cant)
             print (b, end="\r")
@@ -91,7 +91,7 @@ test_Y_one_hot = to_categorical(test_Y)
 print('Original label:', train_Y[0])
 print('After conversion to one-hot:', train_Y_one_hot[0])
  
-train_X,valid_X,train_label,valid_label = train_test_split(train_X, train_Y_one_hot, test_size=0.2, random_state=7)
+train_X,valid_X,train_label,valid_label = train_test_split(train_X, train_Y_one_hot, test_size=0.3, random_state=23)
  
 print(train_X.shape,valid_X.shape,train_label.shape,valid_label.shape)
 
@@ -100,26 +100,28 @@ epochs = 5
 batch_size = 50
 
 animals_model = Sequential()
-animals_model.add(Conv2D(32, kernel_size = (3, 3),activation = 'linear', padding = 'same', input_shape=(72, 128, 3)))
+animals_model.add(Conv2D(32, kernel_size = (2, 2),activation = 'linear', padding = 'same', input_shape=(36, 64, 3)))
 animals_model.add(LeakyReLU(alpha = 0.1))
 animals_model.add(MaxPooling2D((2, 2), padding = 'same'))
 animals_model.add(Dropout(0.5))
 animals_model.add(Flatten())
-animals_model.add(Dense(64, activation = 'relu'))
-animals_model.add(Dense(64, activation = 'relu'))
-#animals_model.add(Dense(64, activation = 'relu'))
-#animals_model.add(Dense(64, activation = 'relu'))
-#animals_model.add(Dense(64, activation = 'relu'))
-#animals_model.add(Dense(64, activation = 'relu'))
-#animals_model.add(Dense(64, activation = 'relu'))
-#animals_model.add(Dense(64, activation = 'sigmoid'))
-#animals_model.add(Dense(64, activation = 'sigmoid'))
-#animals_model.add(Dense(64, activation = 'sigmoid'))
-#animals_model.add(Dense(64, activation = 'sigmoid'))
-#animals_model.add(Dense(64, activation = 'sigmoid'))
-#animals_model.add(Dense(64, activation = 'sigmoid'))
-animals_model.add(Dense(64, activation = 'sigmoid'))
-animals_model.add(Dense(64, activation = 'sigmoid'))
+animals_model.add(Dense(1024, activation = 'relu'))
+animals_model.add(Dense(512, activation = 'relu'))
+animals_model.add(Dense(1024, activation = 'relu'))
+animals_model.add(Dense(512, activation = 'relu'))
+animals_model.add(Dense(1024, activation = 'relu'))
+animals_model.add(Dense(512, activation = 'relu'))
+#animals_model.add(Dense(128, activation = 'relu'))
+#animals_model.add(Dense(128, activation = 'linear'))
+#animals_model.add(Dense(128, activation = 'linear'))
+#animals_model.add(Dense(128, activation = 'sigmoid'))
+#animals_model.add(Dense(128, activation = 'sigmoid'))
+#animals_model.add(Dense(128, activation = 'sigmoid'))
+#animals_model.add(Dense(128, activation = 'sigmoid'))
+#animals_model.add(Dense(128, activation = 'sigmoid'))
+#animals_model.add(Dense(128, activation = 'sigmoid'))
+#animals_model.add(Dense(128, activation = 'sigmoid'))
+#animals_model.add(Dense(128, activation = 'sigmoid'))
 animals_model.add(LeakyReLU(alpha = 0.1))
 animals_model.add(Dropout(0.5)) 
 animals_model.add(Dense(nClasses, activation = 'softmax'))
